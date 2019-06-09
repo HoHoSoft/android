@@ -968,16 +968,10 @@ public class UploadFileOperation extends SyncOperation {
                             .setMaxHeight(2500)
                             .setQuality(77)
                             .compressToFile(originalFile);
-                        deleteFileAndScan(originalFile);
-                        //overwrite temp file
+                        move(tempCompressedImageFile, originalFile);
 
-                        File targetCompressed = originalFile; //new File(originalFile.getParent() +  File.separator + "COMPRESSED_" +originalFile.getName() );
-                        move(tempCompressedImageFile, targetCompressed);
-
-                        mFile.setStoragePath(targetCompressed.getAbsolutePath());
-                        mFile.setFileLength(targetCompressed.length());
+                        mFile.setStoragePath("");
                         saveUploadedFile(client);
-                        FileDataStorageManager.triggerMediaScan(targetCompressed.getAbsolutePath());
                     } catch (IOException e) {
                         //TODO: What to do now? shouldn't  saveUploadedFile be called? but upload was successful ...
                         Log.e(TAG, "Error compressing file", e);
