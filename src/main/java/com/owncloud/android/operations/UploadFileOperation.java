@@ -972,6 +972,7 @@ public class UploadFileOperation extends SyncOperation {
 
                         mFile.setStoragePath("");
                         saveUploadedFile(client);
+                        FileDataStorageManager.triggerMediaScan(originalFile.getAbsolutePath());
                     } catch (IOException e) {
                         //TODO: What to do now? shouldn't  saveUploadedFile be called? but upload was successful ...
                         Log.e(TAG, "Error compressing file", e);
